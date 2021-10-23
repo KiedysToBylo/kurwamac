@@ -1,7 +1,3 @@
-<?php
-
-session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +8,9 @@ session_start();
       #map { height: 50vh; width: 50vw; }
    </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+      
+      </script>
 </head>
 <body>
 <?php 
@@ -27,43 +26,40 @@ session_start();
 
              <script type="text/javascript">
 
-            var loki1 = 0;
             
             const platform = new H.service.Platform({ apikey: 'R-K26E5jaTJ7u0U6DKbIMJPKcb6DcKgQt4pAvwNcbIs' });
             const defaultLayers = platform.createDefaultLayers();
+
             const map = new H.Map(document.getElementById('map'),
          defaultLayers.vector.normal.map, {
          center: { lat: 52.5309, lng: 13.3847 },
          zoom: 5,
          pixelRatio: window.devicePixelRatio || 1
-      });
+          });
+
                     window.addEventListener('resize', () => map.getViewPort().resize());
                     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
                     const ui = H.ui.UI.createDefault(map, defaultLayers);
 
-                
+                    var loki1 =0;
                    // Get an instance of the geocoding service:
                         const searchText = 'Suwałki';
                         const geocoder = platform.getGeocodingService();
 
-
-                        geocoder.geocode({ searchText }, result => {
+                        
+                            geocoder.geocode({ searchText }, result => {
                             const location = result.Response.View[0].Result[0].Location.DisplayPosition;
                             const { Latitude : lat, Longitude: lng } = location;
                             const marker = new H.map.Marker({ lat, lng });
                             loki1 = lat + "," + lng ;
-
-                            $.ajax({
-                            method: "POST",
-                            url: "../mapy.php",
-                            data: { loki1:loki1 }
-                            })
-
-                            //$.get('mapy.php', {  //TUTAJ PRÓBUJĄ ZMIENNĄ LOKI1 WYSŁAĆ 
-                           // rate: loki1,
-                           // });
+                           
+                            console.log(loki1);
+                            return loki1;
                          }); 
-console.log(loki1);
+
+                        
+    if(loki1!=0){   
+        console.log(loki1);                  
 var routingParameters = {
   'routingMode': 'fast',
   'transportMode': 'car',
@@ -113,10 +109,13 @@ router.calculateRoute(routingParameters, onResult,
   function(error) {
     alert(error.message);
   });
+    }
    </script>
+
  <?php 
  echo $_POST['loki1']; // ALE TUTAJ I TAK JEJ NIE MA 
 ?>
 
 </body>
 </html>
+
