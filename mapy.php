@@ -47,14 +47,12 @@
                         const geocoder = platform.getGeocodingService();
 
                         
-                            geocoder.geocode({ searchText }, result => {
+                             geocoder.geocode({ searchText }).then(()=>result => {
                             const location = result.Response.View[0].Result[0].Location.DisplayPosition;
                             const { Latitude : lat, Longitude: lng } = location;
                             const marker = new H.map.Marker({ lat, lng });
                             loki1 = lat + "," + lng ;
-                           
                             console.log(loki1);
-                            return loki1;
                          }); 
 
   
