@@ -63,7 +63,7 @@ session_start();
                            // rate: loki1,
                            // });
                          }); 
-
+console.log(loki1);
 var routingParameters = {
   'routingMode': 'fast',
   'transportMode': 'car',
