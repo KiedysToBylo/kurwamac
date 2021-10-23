@@ -51,7 +51,7 @@ session_start();
                             const location = result.Response.View[0].Result[0].Location.DisplayPosition;
                             const { Latitude : lat, Longitude: lng } = location;
                             const marker = new H.map.Marker({ lat, lng });
-                            var loki1 = lat + "," + lng ;
+                            loki1 = lat + "," + lng ;
 
                             $.ajax({
                             method: "POST",
