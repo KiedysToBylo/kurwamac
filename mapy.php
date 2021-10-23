@@ -57,8 +57,7 @@
                             return loki1;
                          }); 
 
-                        
-    if(loki1!=0){   
+  
         console.log(loki1);                  
 var routingParameters = {
   'routingMode': 'fast',
@@ -109,7 +108,7 @@ router.calculateRoute(routingParameters, onResult,
   function(error) {
     alert(error.message);
   });
-    }
+    
    </script>
 
  <?php 
