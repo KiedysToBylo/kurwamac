@@ -43,25 +43,28 @@
 
                     var loki1 =0;
                    // Get an instance of the geocoding service:
-                        const searchText = 'Suwałki';
+                        const searchText = 'warszawa';
                         const geocoder = platform.getGeocodingService();
 
                         
-                             geocoder.geocode({ searchText }).then(()=>result => {
+                            geocoder.geocode({ searchText }, result => {
                             const location = result.Response.View[0].Result[0].Location.DisplayPosition;
                             const { Latitude : lat, Longitude: lng } = location;
                             const marker = new H.map.Marker({ lat, lng });
                             loki1 = lat + "," + lng ;
-                            console.log(loki1);
-                         }); 
+                           
+                           
+                        
+                         }).then(()=>{ 
 
-  
-        console.log(loki1);                  
+                        
+
+    console.log(loki1);                  
 var routingParameters = {
   'routingMode': 'fast',
   'transportMode': 'car',
   // The start point of the route:
-  'origin': '50.1120423728813,8.68340740740811',
+  'origin': loki1,
   // The end point of the route:
   'destination': '52.5309916298853,13.3846220493377',
   // Include the route shape in the response
@@ -106,7 +109,7 @@ router.calculateRoute(routingParameters, onResult,
   function(error) {
     alert(error.message);
   });
-    
+});
    </script>
 
  <?php 
