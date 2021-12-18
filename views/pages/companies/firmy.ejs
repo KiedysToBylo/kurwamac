@@ -1,0 +1,53 @@
+<h1>Lista firm:</h1>
+<hr class="dropdown-divider">
+<form>
+<div class="row">
+    <div class="col-3">
+     <%- include('partials/filters.ejs') %>
+    </div>
+    <div class="col-9">
+        <ul>
+            <div class="d-flex bd-highlight mb-3">
+                <div class="me-auto bd-highlight">
+                    <%- include('partials/pagination.ejs') %>
+                </div>
+                <% if (user?.userRank === 'ADMIN') { %>
+                <div class="bd-highlight">
+                    <a href="/admin/zarejestruj" class="btn btn-primary">Dodaj użytkownika</a>
+                </div>
+                <% } %>
+                <div class="bd-highlight">
+                    <a href="/csv" class="btn btn-info">Pobierz CSV</a>
+                </div>
+            </div>
+            <%- include('partials/search.ejs') %>
+            <% companies.forEach(company => { %>
+                <div class="card bg-light mb-2">
+                    <div class="card-body">
+                       <div class="row">
+                           <div class="col-md-2">
+                               <img src="/upload/<%= company.image %>" class="img-fluid " alt="">
+                           </div>
+                           <div class="col">
+                            <p class="h3 mb-1"><%= company.name %></p>
+                            <p class="mb-0">Kontakt: <%= //company.user?.email  %></p>
+                                <div class="d-grid gap-2 d-md-flex justify-content">
+                                    <a href="/admin/firma/<%= company.companyId %>" class="btn btn-primary">Zobacz</a>
+                                    <a href="/admin/firmy/<%= company.companyId %>/edytuj" class="btn btn-warning">Edytuj</a>
+                                    <a href="/admin/firmy/<%= company.companyId %>/usun" onClick="return confirm('Czy jesteś pewny?')" class="btn btn-danger">Usuń</a>
+                                </div>
+                            </div>
+                                <div class="col">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-end">
+                                <a href="/admin/firma/<%= company.companyId %>/dodaj-fracht" class="btn btn-info">Dodaj Fracht</a>
+                                <a href="/admin/firma/<%= company.companyId %>/lista-frachtow" class="btn btn-primary">Lista Frachtów</a>   
+                             </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </ul>
+    </div>
+</div>
+</form>

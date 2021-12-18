@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col">
+      <h1>Szczegóły zlecenia <%- order._id%></h1>
+    </div>
+  </div>
+<hr class="dropdown-divider">
+<div class="table-scrollable">
+<table class="m-auto table table-light table-hover table-responsive">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">#</th>
+        <th scope="col">Numer zlecenia</th>
+        <th scope="col">Zleceniodawca</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Waluta</th>
+        <th scope="col">Km Puste</th>
+        <th scope="col">Km Pełne</th>
+        <th scope="col">Suma Km</th>
+        <th scope="col">Śr.Pełny</th>
+        <th scope="col">Śr.Pusty/Pełny</th>
+        <th scope="col">Prowizja</th>
+        <th scope="col">Data</th>
+        <th scope="col">Załadunek</th>
+        <th scope="col">Rozładunek</th>
+        <th scope="col">Akcja</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <th scope="row">#</th>
+        <td><%= order.orderNumber %></td>
+        <td><%= order.orderClient %></td>
+        <td><%= order.price %></td>
+        <td><%= order.currency %></td>
+        <td><%= order.emptyKM %></td>
+        <td><%= order.fullKM %></td>
+        <td><%= order.allKM %></td>
+        <td><%= order.averageForFullKm %></td>
+        <td><%= order.averageForAllKm %></td>
+        <td><%= order.commision %></td>
+        <td><%= order.orderTakeDate.split(' ') %></td>
+        <td><%= order.loadingAdress.lPostCode %></td>
+        <td><%= order.unloadingAdress.uPostCode %></td>
+        <td><a href="/admin/firma/<%-order._id%>/edytuj-fracht" class="btn btn-sm btn-danger">Usuń</a></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Załadunek - Rozładunek -->
+<div class="card">
+    <div class="card-body">
+        <div class="row" style="text-align: center;">
+            <div class="col">
+               <b>Załadunek</b> 
+            </div>
+            <div class="col">
+               <b>Rozładunek</b> 
+            </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col">
+                <%= order.loadingAdress.lAdress%>
+            </div>
+            <div class="col">
+                <%= order.unloadingAdress.uAdress%>
+            </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col">
+                <%= order.loadingAdress.lPostCode %>
+            </div>
+            <div class="col">
+                <%= order.unloadingAdress.uPostCode %>
+            </div>
+        </div>
+        <div class="row">
+            <% let i=0; 
+                let status;
+                let color;
+          if(order.statusOrder=== 1){
+            status = "Wysłane do kierowcy";
+            color = "table-danger"
+          }else if (order.statusOrder=== 2){
+            status = "Potwierdzone przez kierowcę"
+            color = "table-warning"
+          }else if (order.statusOrder===3){
+            status = "Załadowane "+ orders.loadedCargo;
+            color = "table-info"
+          }else if (order.statusOrder===4){
+            status = "W drodze na rozładunek"
+            color = "table-info"
+          }else if (order.statusOrder===5){
+            status = "Rozładowane";
+            color = "table-success"
+          } %>
+          <div class="col mt-2">
+           <b> Status:</b> <div><%- status %></div> 
+          </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Zdjęcia CMR -->
+<div class="card">
+    <div class="card-body">
+        CMR:
+    </div>
+    <div class="table-scrollable2">
+    <div class="card-body">
+        <%  let image=Array; if(order.image){ image = order.image.split(',')} %>
+        <% for(let i=0;i<10;i++) { %>
+        <% if(image[i]) { %>
+         <img src="/upload/cmr/<%- image[i] %>" class="img-fluid" style="max-height: 40vh;"/>
+        <% }} %>       
+        </div>
+    </div>
+</div>

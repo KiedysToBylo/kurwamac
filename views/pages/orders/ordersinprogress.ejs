@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col">
+      <h1>Trwające zlecenia</h1>
+    </div>
+  </div>
+  <hr class="dropdown-divider">
+  <table class="m-auto table table-light table-hover table-responsive" style="text-align: center;">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">#</th>
+        <th scope="col">Auto</th>
+        <th scope="col">Kierowca</th>
+        <th scope="col">Załadunek</th>
+        <th scope="col">Rozładunek</th>
+        <th scope="col">Status</th>
+        <th scope="col">Więcej</th>
+        <th scope="col">Akcja</th>
+      </tr>
+    </thead>
+    <% let i=0; 
+    orders.forEach(orders => { 
+        let status;
+        let color;
+  if(orders.statusOrder=== 1){
+    status = "Wysłane do kierowcy";
+    color = "table-danger"
+  }else if (orders.statusOrder=== 2){
+    status = "Potwierdzone przez kierowcę"
+    color = "table-warning"
+  }else if (orders.statusOrder===3){
+    status = "Załadowane "+ orders.loadedCargo;
+    color = "table-info"
+  }else if (orders.statusOrder===4){
+    status = "W drodze na rozładunek"
+    color = "table-info"
+  }else if (orders.statusOrder===5){
+    status = "Rozładowane";
+    color = "table-success"
+  } %>
+    <tbody>
+            <tr class="<% if(orders.statusOrder===3) { %>table-warning<% } %>">
+                <th scope="row"><% i++ %><%- i %></th>
+                <td><%- orders.carForOrder %></td>
+                <td><%- orders.driver %></td>
+                <td><%- orders.loadingAdress.lPostCode %></td>
+                <td><%- orders.unloadingAdress.uPostCode %></td>
+                <td class="<%-color%>"><%- status %></td>
+                <td><a href="/admin/firma/<%-orders._id%>/szczegoly" class="btn btn-sm btn-info">Zobacz</a></td>
+                <td style="width: 10%; text-align: center;">
+                  <% if (orders.statusOrder === 3) { %>
+                  <form method="post">
+                    <input type="hidden" name="orderId" value="<%- orders._id %>"/>
+                    <button class="btn btn-danger">Potwierdź</button>
+                  </form>
+                   <% }else if (orders.statusOrder === 5){ %>
+                    <form method="post">
+                    <input type="hidden" name="orderId" value="<%- orders._id %>">
+                    <button class="btn btn-success">Zakończ</button>
+                   </form>
+                    <% }else{ %>
+                     -
+                      <% } %>
+                  </td>
+                </tr>
+    </tbody>
+    <% }); %> 
+  </table>

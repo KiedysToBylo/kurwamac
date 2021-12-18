@@ -1,0 +1,47 @@
+<h1>Lista Klientów:</h1>
+<form>
+<div class="row">
+    <div class="col">
+        <ul>
+            <div class="d-flex bd-highlight mb-3">
+                <div class="col" style="text-align: left;">
+                    <% if (user?.userRank === 'ADMIN') { %>
+                        <div class="bd-highlight">
+                            <a href="/admin/klienci/dodaj-klienta" class="btn btn-primary">Dodaj Klienta</a>
+                        </div>
+                        <% } %>
+                    </div>
+                <div class="bd-highlight">
+                    <a href="/csv" class="btn btn-info">Pobierz CSV</a>
+                </div> 
+            </div>
+            <%- include('../companies/partials/search.ejs') %>
+      
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nazwa</th>
+                        <th scope="col">Adres</th>
+                        <th scope="col">NIP</th>
+                        <th scope="col">Akcja</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% let i=0; clients.forEach(clients => { i++ %>
+                      <tr>
+                        <th scope="row">
+                          <%- i%>
+                         <td><%= clients.clientName %></td>
+                         <td><%= clients.clientAdress.adress  %></td>
+                         <td><%= clients.clientAdress.clientNip  %></td>
+                         <td> <a href="/admin/firmy/<%= clients.clientAdress.clientNip %>/usun" onClick="return confirm('Czy jesteś pewny?')" class="btn btn-danger">Usuń</a></td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+            </ul>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,147 @@
+<form method="post">
+  <div class="row">
+    <div class="col-4">
+      <h1>Wszystkie zlecenia</h1>
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+     od: <input type="date" name="fromDate" value="<%-date%>" class="form-control">
+     do: <input type="date" name="toDate" value="<%-dateNow%>" class="form-control">
+       <div class="d-flex flex-row-reverse">
+        <button class="btn btn-warning">Zastosuj</button>
+        </div>
+      </div>
+  </div>
+  </form>
+  <% if(sorting) { %>
+  <h3>Wyniki wyszukiwania dla auta: <%- carForOrder%></h3>
+  <% } %>
+  <hr class="dropdown-divider">
+  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" class="btn btn-primary mb-2">Podsumowanie</a>
+
+  <div class="table-scrollable">
+  <table class="m-auto table table-light table-hover table-responsive">
+      <thead>
+        <tr class="table-dark">
+          <th scope="col">#</th>
+          <th scope="col">Numer zlecenia</th>
+          <th scope="col">Zleceniodawca</th>
+          <th scope="col">Cena</th>
+          <th scope="col">Waluta</th>
+          <th scope="col">Km Puste</th>
+          <th scope="col">Km Pełne</th>
+          <th scope="col">Suma Km</th>
+          <th scope="col">Śr.Pełny</th>
+          <th scope="col">Śr.Pusty/Pełny</th>
+          <th scope="col">Prowizja</th>
+          <th scope="col">Data</th>
+          <th scope="col">Załadunek</th>
+          <th scope="col">Rozładunek</th>
+          <th scope="col">Akcja</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% let i=0; companyOrders.forEach(companyOrders => { %>
+        <tr>
+          <th scope="row"><% i++ %><%- i %></th>
+          <td><%- companyOrders.orderNumber %></td>
+          <td><%- companyOrders.orderClient %></td>
+          <td><%- companyOrders.price %></td>
+          <td><%- companyOrders.currency %></td>
+          <td><%- companyOrders.emptyKM %></td>
+          <td><%- companyOrders.fullKM %></td>
+          <td><%- companyOrders.allKM %></td>
+          <td><%- companyOrders.averageForFullKm %></td>
+          <td><%- companyOrders.averageForAllKm %></td>
+          <td><%- companyOrders.commision %></td>
+          <td><%- companyOrders.orderTakeDate.split(' ') %></td>
+          <td><%- companyOrders.loadingAdress.lPostCode %></td>
+          <td><%- companyOrders.unloadingAdress.uPostCode %></td>
+          <td><a href="/admin/firma/<%-companyOrders._id%>/edytuj-fracht" class="btn btn-sm btn-warning">Edytuj</a>
+            <a href="/admin/firma/<%-companyOrders._id%>/szczegoly" class="btn btn-sm btn-info">Zobacz</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  
+  
+  
+  <!-- Podsumowanie -->
+    <!-- EURO -->
+    
+  <div class="offcanvas offcanvas-bottom" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasBottomLabel">Podsumowanie</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body xl ">
+      <h3>EURO</h3>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-dark" style="text-align: center;">
+            <th scope="col">SUMA</th>
+            <th scope="col" colspan="3">SUMA KILOMETRÓW €</th>
+            <th scope="col" colspan="2">ŚREDNIA €/KM</th>
+            <th scope="col" >PROWIZJA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align: center;">
+            <th class="table-info" scope="row">Euro</th>
+            <th class="table-success">Pusty</th>
+            <th class="table-success">Pełny</th>
+            <th class="table-success">Pusty/Pełny</th>
+            <th class="table-primary">Pełny</th>
+            <th class="table-primary">Pusty/Pełny</th>
+            <th class="table-warning">EUR</th>
+          </tr>
+          <tr style="text-align: center;">
+            <th class="table-info" scope="row"><%- priceSumEuro?.total %></th>
+            <th class="table-success"><%- emptySumKmEur?.total %></th>
+            <th class="table-success"><%- fullSumKmEur?.total %></th>
+            <th class="table-success"><%- allKmEur%></th>
+            <th class="table-primary"><%- srFullEur%></th>
+            <th class="table-primary"><%- srAllEur%></th>
+            <th class="table-warning"><%- sumCommisionEur?.total%></th>
+          </tr>
+        </tbody>
+      </table>
+      <h3>PLN</h3>
+        <!-- PLN -->
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class=" table-dark" style="text-align: center;">
+            <th scope="col">SUMA</th>
+            <th scope="col" colspan="3">SUMA KILOMETRÓW PLN</th>
+            <th scope="col" colspan="2">ŚREDNIA PLN/KM</th>
+            <th scope="col" >PROWIZJA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align: center;">
+            <th class="table-info" scope="row">PLN</th>
+            <th class="table-success">Pusty</th>
+            <th class="table-success">Pełny</th>
+            <th class="table-success">Pusty/Pełny</th>
+            <th class="table-primary">Pełny</th>
+            <th class="table-primary">Pusty/Pełny</th>
+            <th class="table-warning">PLN</th>
+          </tr>
+          <tr style="text-align: center;">
+            <th class="table-info" scope="row"><%- priceSumPln?.total %></th>
+            <th class="table-success"><%- emptySumKmPln?.total %></th>
+            <th class="table-success"><%- fullSumKmPln?.total %></th>
+            <th class="table-success"><%- allKmPln%></th>
+            <th class="table-primary"><%- srFullPln%></th>
+            <th class="table-primary"><%- srAllPln%></th>
+            <th class="table-warning"><%- sumCommisionPln?.total%></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>

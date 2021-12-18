@@ -1,0 +1,235 @@
+<h1>Dodaj Fracht dla firmy: <%- carrier.name %> </h1>
+<hr class="dropdown-divider">
+<!-- DANE PODSTAWOWE -->
+<div class="card mb-2 card-header">
+<div class="card-body">
+ <form method="post">
+     <input type="hidden" name="companyId" value="<%- carrier.companyId%>">
+    <div class="row g-3">
+    <div class="col-md-6">
+        <!-- firma zlecająca -->
+       <b><label for="orderClient" class="form-label">Firma zlecająca</label></b> 
+        <select 
+        class="form-select<%= errors?.orderClient ? ' is-invalid' : ''%>" 
+        id="orderClient" 
+        name="orderClient" 
+        value="<%= form.orderClient %>"
+        aria-label="Default select example">
+            <option selected value="brak">Wybierz firmę zlecającą</option>
+            <% clients.forEach(clients => { %>
+            <option value="<%- clients.clientName %>"><%- clients.clientName %></option>
+            <% }) %>
+          </select>
+      </div>
+          <!-- Samochód -->
+          <div class="col-md-6">
+            <b><label for="carForOrder" class="form-label">Samochód</label></b> 
+             <select 
+             class="form-select<%= errors?.carForOrder ? ' is-invalid' : ''%>" 
+             id="carForOrder" 
+             name="carForOrder" 
+             value="<%= form.carForOrder %>"
+             aria-label="Default select example">
+                 <option selected value="brak">Wybierz samochód</option>
+                 <% cars.forEach(cars => { %>
+                    <option value="<%- cars.carPlats %>"><%- cars.carPlats%></option>
+                <% }); %>
+               </select>
+           </div>
+      <!-- numer zlecenia -->
+      <div class="col-md-6">
+        <b><label for="orderNumber" class="form-label">Numer zlecenia</label></b>
+        <input 
+        type="text" 
+        name="orderNumber" 
+        placeholder="numer zlecenia..." 
+        class="form-control<%= errors?.orderNumber ? ' is-invalid' : ''%>" 
+        value="<%= form.orderNumber %>"
+        id="orderNumber">
+      </div>
+      <div class="col-md-6">
+         <!-- kierowca -->
+         <b><label for="driver" class="form-label">Kierowca</label></b> 
+         <select 
+         class="form-select<%= errors?.driver ? ' is-invalid' : ''%>" 
+         id="driver" 
+         name="driver" 
+         value="<%= form.driver %>"
+         aria-label="Default select example">
+             <option selected value="brak">Wybierz kierowcę</option>
+             <% users.forEach(users => { %>
+                <option value="<%-users.userId%>"><%- users.userImie %></option>
+            <% }); %> 
+           </select>
+       </div>
+      <!-- e-mail klienta -->
+      <div class="col-md-6">
+        <b><label for="contaktPersonEmail" class="form-label">E-mail</label></b>
+        <input 
+        type="text" 
+        name="contaktPersonEmail" 
+        placeholder="e-mail zleceniodawcy..." 
+        class="form-control<%= errors?.contaktPersonEmail ? ' is-invalid' : ''%>" 
+        value="<%= form.contaktPersonEmail %>"
+        id="contaktPersonEmail">
+      </div>
+        <!-- prowizja -->
+        <div class="col-md-6">
+          <b><label for="interest" class="form-label">Prowizja</label></b> 
+          <select 
+          class="form-select<%= errors?.interest ? ' is-invalid' : ''%>" 
+          id="interest" 
+          value="<%= form.interest %>"
+          name="interest" 
+          aria-label="Default select example">
+              <option selected value="brak">Wybierz prowizje</option>
+              <option value="0">0%</option>
+              <option value="0.07">7%</option>
+              <option value="0.08">8%</option>
+              <option value="0.09">9%</option>
+              <option value="0.10">10%</option>
+          </select>
+      </div>
+      <!-- cena -->
+      <div class="col-md-6">
+        <b><label for="price" class="form-label">Cena</label></b>
+        <input 
+        type="number" 
+        name="price" 
+        value="<%= form.price %>"
+        placeholder="cena frachtu..." 
+        class="form-control<%= errors?.price ? ' is-invalid' : ''%>" 
+        id="price">
+      </div>
+          <!-- waluta -->
+          <div class="col-md-6">
+            <b><label for="currency" class="form-label">Waluta</label></b> 
+            <select 
+            class="form-select" 
+            id="currency" 
+            value="<%= form.currency %>"
+            name="currency" 
+            aria-label="Default select example">
+                <option selected value="EUR">EURO</option>
+                <option value="PLN">PLN</option>
+            </select>
+        </div>
+  </div>
+</div> 
+</div> 
+<!-- ADRESY -->
+<div class="card mb-2 bg-light">
+    <div class="card-body">
+     <div class="row g-3">
+                  <!-- data załadunku -->
+                 <div class="col-md-6">
+                    <b><label for="loadingDate" class="form-label">Data załadunku</label></b>
+                    <input 
+                    type="text" 
+                    placeholder="data załadunku..." 
+                    name="loadingDate" 
+                    value="<%= form.loadingDate %>"
+                    class="form-control<%= errors?.loadingDate ? ' is-invalid' : ''%>" 
+                    id="loadingDate">
+                  </div>
+                  <!-- data rozładunku -->
+                  <div class="col-md-6">
+                    <b><label for="unloadingDate" class="form-label">Data rozładunku</label></b>
+                    <input 
+                    type="text" 
+                    placeholder="data rozładunku..." 
+                    name="unloadingDate" 
+                    value="<%= form.unloadingDate %>"
+                    class="form-control<%= errors?.unloadingDate ? ' is-invalid' : ''%>" 
+                    id="unloadingDate">
+                  </div>
+                  <!-- adres załadunku -->
+                  <div class="col-md-6">
+                    <b><label for="lAdress" class="form-label">Adres załadunku</label></b>
+                    <textarea 
+                    type="text" 
+                    class="form-control<%= errors?.lAdress ? ' is-invalid' : ''%>" 
+                    id="lAdress" 
+                    name="lAdress" 
+                    placeholder="adres załadunku..."><%= form.lAdress %></textarea>
+                  </div>
+                  <!-- adres rozładunku -->
+                  <div class="col-md-6">
+                    <b><label for="uAdress" class="form-label">Adres Rozładunku</label></b>
+                    <textarea 
+                    type="text" 
+                    class="form-control<%= errors?.uAdress ? ' is-invalid' : ''%>" 
+                    id="uAdress" 
+                    name="uAdress" 
+                    placeholder="adres rozładunku..."><%= form.uAdress %></textarea>
+                  </div>
+                  <!-- kod pocztowy załadunku -->
+                  <div class="col-md-6">
+                    <input type="text" 
+                    placeholder="kod pocztowy załadunku..." 
+                    name="lPostCode" 
+                    value="<%- form.lPostCode %>"
+                    class="form-control<%= errors?.lPostCode ? ' is-invalid' : ''%>" 
+                    id="lPostCode">
+                  </div>
+                  <!-- kod pocztowy rozładunku -->
+                  <div class="col-md-6">
+                    <input 
+                    type="text" 
+                    placeholder="kod pocztowy rozładunku..." 
+                    name="uPostCode" 
+                    value="<%- form.uPostCode %>"
+                    class="form-control<%= errors?.uPostCode ? ' is-invalid' : ''%>" 
+                    id="uPostCode">
+                  </div>
+                  <!-- towar -->
+                  <div class="col">
+                  <b><label for="cargo" class="form-label">Towar</label></b>
+                    <input 
+                    type="text" 
+                    placeholder="towar..." 
+                    name="cargo" 
+                    value="<%- form.cargo %>"
+                    class="form-control<%= errors?.cargo ? ' is-invalid' : ''%>" 
+                    id="cargo">
+                  </div>
+            </div>
+        </div>
+    </div>
+    <!-- Kilometry -->
+    <div class="card bg-light">
+        <div class="card-body">
+            <div class="row">
+                <!-- puste kilometry -->
+                <div class="col">
+                    <b><label for="emptyKM" class="form-label">Puste kilometry</label></b>
+                    <input 
+                    type="number" 
+                    placeholder="puste kilometry" 
+                    name="emptyKM"
+                    value="<%- form.emptyKM %>" 
+                    class="form-control<%= errors?.emptyKM ? ' is-invalid' : ''%>" 
+                    id="emptyKM">
+                  </div>
+                  <!-- pełne kilometry -->
+                  <div class="col">
+                    <b><label for="fullKM" class="form-label">Pełne kilometry</label></b>
+                    <input 
+                    type="number" 
+                    placeholder="pełne kilometry" 
+                    name="fullKM" 
+                    value="<%- form.fullKM %>" 
+                    class="form-control<%= errors?.fullKM ? ' is-invalid' : ''%>" 
+                    id="fullKM">
+                  </div>
+            </div>
+        </div>
+    </div>
+   <!-- stopka -->
+    <div class="col-12" style="text-align: right;">
+        <hr class="dropdown-divider">
+      <button type="submit" class="btn btn-primary">Dodaj</button>
+    </div>
+</div>
+</form>
+

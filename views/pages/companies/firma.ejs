@@ -1,0 +1,84 @@
+
+<% if (image) { %>
+  <div class="row">
+    <div class="col">
+      <h1>Szczegóły <%- name %> </h1>
+    </div>
+    <div class="col" style="text-align: right;">
+      <img class="img-fluid img-thumbnail" style="max-height: 150px;" src="/upload/<%= image %>"  alt="">
+    </div>
+  </div>
+  <% } %>
+  <hr class="dropdown-divider">
+  <div class="row">
+    <div class="col"> 
+       <h4>Lista pojazdów firmy <%- name%></h4>
+    </div>
+    <div class="col" style="text-align: right;">
+      <a href="/admin/firma/<%= companyId %>/dodaj-auto" class="btn  btn-info">Dodaj Pojazd</a>
+    </div>
+  </div>
+
+  <ul>
+    <% if (carsList) { %>
+        <table class="table table-striped">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">#</th>
+              <th scope="col">Nr.Rejestracyjny</th>
+              <th scope="col">Spalanie</th>
+              <th scope="col">Wymiary</th>
+              <th scope="col">Akcja</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let i=0; companyCars.forEach(companyCars => { i++ %>
+            <tr>
+              <th  scope="row">
+                <%- i%>
+               <td><%- companyCars.carPlats %></td>
+               <td><%- companyCars.carPlats %></td>
+               <td><%- companyCars.carPlats %></td>
+               <td><a href="/admin/firma/<%= companyId %>/usun-auto/<%= companyCars.carPlats %>" onClick="return confirm('Czy jesteś pewny?')" class="btn btn-sm btn-danger">usuń</a></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% } %>
+</ul>
+<hr class="dropdown-divider">
+<div class="row">
+  <div class="col"> 
+     <h4>Lista pracowników firmy <%- name%></h4>
+  </div>
+  <div class="col" style="text-align: right;">
+    <a href="/admin/zarejestruj/<%= companyId %>/dodaj-pracownika" class="btn  btn-info">Dodaj pracownika</a>
+  </div>
+</div>
+<ul>
+  <% if (carsList) { %>
+      <table class="table table-striped">
+        <thead>
+          <tr class="table-dark">
+            <th scope="col">#</th>
+            <th scope="col">Imie</th>
+            <th scope="col">Nazwisko</th>
+            <th scope="col">Stanowisko</th>
+            <th scope="col">Akcja</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let i=0; companyEmployees.forEach(companyEmployees => { i++ %>
+          <tr>
+            <th scope="row">
+              <%- i%>
+             <td><%- companyEmployees.userImie %></td>
+             <td><%- companyEmployees.userNazwisko %></td>
+             <td><%- companyEmployees.userRank %></td>
+             <td><a href="/admin/firma/<%= companyId %>/usun-pracownika/<%= companyEmployees.userId %>" onClick="return confirm('Czy jesteś pewny?')" class="btn btn-sm btn-danger">usuń</a></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } %>
+</ul>

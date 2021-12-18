@@ -1,0 +1,21 @@
+  <% let howManyCars = 1; for (i=1; i<=howManyCars; i++) { %>
+  <h1>Dodaj Samochód</h1>
+  <hr class="dropdown-divider">
+    <label for="cars" class="form-label">dodaj</label>
+   <div class="row">
+      <div class="col">
+        <form method="post">
+        <input 
+        type="text"
+        id="car"
+        name="car"
+        placeholder="Podaj numer rejestracyjny..." 
+        class="form-control<%= errors?.cars ? ' is-invalid' : ''%>"/>
+        <% if (errors?.cars) { %><div class="invalid-feedback"><%= errors.cars.message %></div><% } %> 
+      </div>
+      <div class="col mb-3">
+        <button class="btn btn-success">Dodaj</button>
+      </form>
+      </div>
+  </div>
+  <% } %>

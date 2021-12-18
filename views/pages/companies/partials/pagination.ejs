@@ -1,0 +1,12 @@
+<div class="row">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#" data-page="1">Previous</a></li>
+          <% for (let i = 1; i <= pagesCount; i++) { %>
+          <li class="page-item <%= page == i ? 'active' : '' %>"><a class="page-link" href="#" data-page="<%- i %>"><%- i %></a></li>
+          <% } %>
+          <li class="page-item"><a class="page-link" href="#" data-page="<%= pagesCount++ %>">Next</a></li>
+        </ul>
+      </nav>
+</div>
+

@@ -1,0 +1,41 @@
+<form method="post" >
+      <div class="mb-3">
+          <label for="name" class="form-label">Nazwa Firmy</label>
+          <input type="text"
+          name="name"
+          value="<%= form.name %>"
+          class="form-control<%= errors?.name ? ' is-invalid' : ''%>"/>
+          <% if (errors?.name) { %><div class="invalid-feedback"><%= errors.name.message %></div><% } %> 
+          <div class="form-text">Przynajmniej 3 znaki</div>
+      </div>
+          <div class="form-floating mb-3">
+            <textarea 
+            class="form-control" 
+            placeholder="Pełny adres firmy..." 
+            id="clientAdress" 
+            name="clientAdress"
+            style="height: 100px"><%= form.clientAdress?.adress %></textarea>
+            <label for="clientAdress">Adres Firmy</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea 
+            id="clientNip" 
+            name="clientNip"
+            placeholder="Leave a comment here"
+            class="form-control<%= errors?.clientNip ? ' is-invalid' : ''%>"><%= form.clientNip?.clientNip %></textarea>
+            <label for="clientNip">NIP</label>
+          </div>
+            <% if (errors?.adress) { %><div class="invalid-feedback"><%= errors.clientNip.message %>
+            </div><% } %> 
+
+       
+        <button class="btn btn-primary">Dodaj Firmę</button>
+  </form>
+  
+  <% if (errors) { console.log(errors) %>
+  <div class="alert alert-danger mt-3">
+      <ul>
+       Popraw dane w formularzu!
+      </ul>
+    </div>
+  <% } %>

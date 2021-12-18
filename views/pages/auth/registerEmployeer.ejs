@@ -1,0 +1,98 @@
+<h1>Rejestracja</h1>
+
+<form method="POST">
+<!-- email  -->
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" 
+      class="form-control <%- errors?.email ? 'is-invalid' : '' %>" 
+      name="email" 
+      value="<%- form.email %>"
+      id="email"
+      placeholder="email@email.com..."
+      required>
+    <% if (errors?.email) { %>
+      <div class="invalid-feedback"><%= errors.email.message %></div>
+    <% } %>
+  </div>
+<!-- hasło -->
+  <div class="mb-3">
+    <label for="password" class="form-label">Hasło</label>
+    <input type="password" 
+      class="form-control <%- errors?.password ? 'is-invalid' : '' %>" 
+      name="password"
+      id="password"
+      placeholder="*******"
+      required>
+    <% if (errors?.password) { %>
+      <div class="invalid-feedback"><%= errors.password.message %></div>
+    <% } %>
+  </div>
+<!-- imie i nazwisko -->
+<div class="row g-3 mb-3">
+  <div class="col">
+    <label for="userImie" class="form-label">Imie</label>
+    <input 
+    type="text"
+    id="userImie"
+    name="userImie"
+    placeholder="Imie..."
+    aria-label="First name"
+    class="form-control">
+  </div>
+  
+  <div class="col">
+    <label for="userNazwisko" class="form-label">Nazwisko</label>
+    <input 
+    type="text" 
+    id="userNazwisko" 
+    name="userNazwisko"  
+    placeholder="Nazwisko..." 
+    aria-label="Last name" 
+    class="form-control">
+  </div>
+</div>
+<!-- ranga -->
+  <label for="userRank" class="form-label">Ranga użytkownika</label>
+  <div class="mb-3">
+    <select 
+    id="userRank" 
+    name="userRank" 
+    class="form-select <% errors?.userRank ? 'is-Invalid' : ''%>" 
+    required>
+      <option selected>Wybierz rangę</option>
+      <option value="ADMIN">Admin</option>
+      <option value="COMPANY">Firma</option>
+      <option value="DRIVER">Kierowca</option>
+      <% if (errors?.userRank) { %>
+      <div class="invalid-feedback"><%= errors.userRank.message %></div>
+      <% } %>
+    </select>
+  </div>
+<!-- przynależność -->
+  <!-- <label for="userId" class="form-label">Przynależność użytkownika</label>
+  <div class="mb-3">
+    <select 
+    id="userId" 
+    name="userId" 
+    class="form-select <% //errors?.userRank ? 'is-Invalid' : ''%>" 
+    required>
+      <option selected>Wybierz Firmę</option>
+      <% //companies.forEach(companies => { %>
+      <option value="<%= //companies.companyId %>"><%- //companies.name + ' Company ID: ' + companies.companyId %></option></option>
+      <%// }); %>
+      <%// if (errors?.userRank) { %>
+        <div class="invalid-feedback"><%=// errors.userRank.message %></div>
+      <%// } %>
+    </select> -->
+<!-- błędy -->
+  <!-- </div> -->
+  <% if (errors) { %>
+    <div class="alert alert-danger mt-3">
+        <ul>
+         Popraw dane w formularzu!
+        </ul>
+      </div>
+      <% } %>
+  <button class="btn btn-primary">Zarejestruj!</button>
+</form>
